@@ -34,7 +34,7 @@ def weighted_rmse(actual, predicted):
     return np.mean(per_site_errors)
 
 
-def test():
+def test_weighted_rmse():
     n_test = 10000
     rng = np.random.RandomState(109157)
 
@@ -50,6 +50,28 @@ def test():
     # actual + 100 ~= 0.998
     np.testing.assert_approx_equal(weighted_rmse(actual, actual + 100), 0.998, significant=3)
 
+
+def adjusted_precision_recall(actual, predicted):
+    tp = (predicted & actual).sum()
+    fp = (predicted & ~actual).sum()
+    fn = (~predicted & actual).sum()
+
+    apr = 0.8 * (tp / (tp + fp)) + 0.2 * (tp / (tp + fn))
+    return apr
+
+
+def test_adjusted_precision_recall():
+    actual = np.array([0, 1, 1, 0])
+    predicted = np.array([1, 1, 0, 0])
+
+    assert 0.5 == adjusted_precision_recall(actual, predicted)
+    assert 0.0 == adjusted_precision_recall(actual, ~actual)
+    assert 1.0 == adjusted_precision_recall(actual, actual)
+
+
+def test():
+    test_weighted_rmse()
+    test_adjusted_precision_recall()
 
 
 if __name__ == "__main__":
