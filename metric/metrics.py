@@ -51,7 +51,7 @@ def test_weighted_rmse():
     np.testing.assert_approx_equal(weighted_rmse(actual, actual + 100), 0.998, significant=3)
 
 
-def adjusted_precision_recall(actual, predicted):
+def weighted_precision_recall(actual, predicted):
     tp = (predicted & actual).sum()
     fp = (predicted & ~actual).sum()
     fn = (~predicted & actual).sum()
@@ -60,18 +60,18 @@ def adjusted_precision_recall(actual, predicted):
     return apr
 
 
-def test_adjusted_precision_recall():
+def test_weighted_precision_recall():
     actual = np.array([0, 1, 1, 0])
     predicted = np.array([1, 1, 0, 0])
 
-    assert 0.5 == adjusted_precision_recall(actual, predicted)
-    assert 0.0 == adjusted_precision_recall(actual, ~actual)
-    assert 1.0 == adjusted_precision_recall(actual, actual)
+    assert 0.5 == weighted_precision_recall(actual, predicted)
+    assert 0.0 == weighted_precision_recall(actual, ~actual)
+    assert 1.0 == weighted_precision_recall(actual, actual)
 
 
 def test():
     test_weighted_rmse()
-    test_adjusted_precision_recall()
+    test_weighted_precision_recall()
 
 
 if __name__ == "__main__":
