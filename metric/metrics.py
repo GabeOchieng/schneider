@@ -69,6 +69,21 @@ def test_weighted_precision_recall():
     assert 1.0 == weighted_precision_recall(actual, actual)
 
 
+def propose_charge(load_15, load_30, load_1440, pv_15, pv_40, pv_1440, price_bought, price_sold):
+    return
+
+
+def _calculate_cost(state, proposed_state, price_bought, battery_efficiency):
+    pass
+
+
+def evaluate():
+    data = [[0] * 8] * 2
+    for row in data:
+        proposal = propose_charge(*row)
+        print(proposal)
+
+
 def test():
     test_weighted_rmse()
     test_weighted_precision_recall()
