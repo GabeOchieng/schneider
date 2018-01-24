@@ -8,6 +8,10 @@ def _per_site_wrmse(actual, predicted):
     weights = np.arange(1, n_obs + 1, dtype=np.float64)
     weights = (3 * n_obs - (2 * weights) + 1) / (2 * (n_obs ** 2))
 
+    # NaNs should be weighted zero, but weight function untouched
+    weights[np.isnan(actual)] = 0
+    actual[np.isnan(actual)] = 0
+
     # calculated weighted rmse
     total_error = np.sqrt((weights * ((predicted - actual) ** 2)).sum())
 
@@ -50,6 +54,11 @@ def test_weighted_rmse():
     # actual + 100 ~= 0.998
     np.testing.assert_approx_equal(weighted_rmse(actual, actual + 100), 0.998, significant=3)
 
+    # with nans
+    predicted = actual + 100
+    actual[5, 2] = np.nan
+    np.testing.assert_approx_equal(weighted_rmse(actual, predicted), 0.998, significant=3)
+
 
 def weighted_precision_recall(actual, predicted):
     tp = (predicted & actual).sum()
@@ -67,7 +76,6 @@ def test_weighted_precision_recall():
     assert 0.5 == weighted_precision_recall(actual, predicted)
     assert 0.0 == weighted_precision_recall(actual, ~actual)
     assert 1.0 == weighted_precision_recall(actual, actual)
-
 
 
 def test():

@@ -9,6 +9,10 @@ The objective is to forecast energy consumption from little data:
 
 In the context of this challenge, we do not want to look at all of the details of the building--the objective of the challenge is to provide an algorithm that can (i) either make a good forecast for all or some of the buildings or (ii) bring the conclusion that other data would be necessary to make relevant forecasts.
 
+** CONSIDER ONLY PAST DATA WHEN MAKING YOUR PREDICTIONS **
+
+The goal of this competition is to _forecast_ consumption accurately. Only algorithms that can be fully replicated and shown to only use past data to create the forecasts will be considered eligible for the prize money.
+
 <div class="container">
 	<div class="row">
 		<div class="col-xs-3">
@@ -75,6 +79,8 @@ Additional information about the included buildings.
 
 This dataset contains temperature data from several stations near each site. For each site several temperature measurements were retrieved from stations in a radius of 30 km.
 
+** Note: Not all sites will have available weather data. **
+
  * `SiteId` - An arbitrary ID number for the building, matches across datasets
  * `Timestamp` - The time of the measurement
  * `Temperature` - The temperature as measured at the weather station
@@ -83,6 +89,8 @@ This dataset contains temperature data from several stations near each site. For
 ### Public Holidays
 
 Public holidays at the sites included in the dataset, which may be helpful for identifying days where consumption may be lower than expected.
+
+** Note: Not all sites will have available public holiday data. **
 
  * `SiteId` - An arbitrary ID number for the building, matches across datasets
  * `Date` - The date of the holiday
