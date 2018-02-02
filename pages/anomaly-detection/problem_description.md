@@ -43,9 +43,9 @@ A selected time series of consumption data for over 200 buildings.
 
  * `meter_id` - An arbitrary ID number for a meter in a building (site). A building can have multiple meters. This id matches across datasets
  * `Timestamp` - The time of the measurement
- * `Values` - A measure of consumption for that building
+ * `Values` - A measure of consumption for that meter
 
-### Building Metadata [TODO]
+### Building Metadata
 
 Additional information about the included buildings.
 
@@ -87,12 +87,14 @@ For this competition, use of external data is prohibited, with the sole exceptio
 There are two "tracks" for this competition. The first is an algorithm for anomaly detection that matches hand-labeled anomalies from Schneider Electric. This will be evaluated against the submissions that competitors make. The second is a submitted report. These reports will suggest anomaly detection methodology and outline classes of anomalies identified by the algorithms. The reports will be reviewed by an expert judging panel. The algorithm submissions will be scored using a weighted combination of precision and recall:
 
 $$
-WPR = \frac{4}{5} \bigg(\frac{T_p}{T_p + F_n} \bigg) + \frac{1}{5} \bigg(\frac{T_p}{T_p + F_p} \bigg)
+WPR = \frac{1}{5} \bigg(\frac{T_p}{T_p + F_n} \bigg) + \frac{4}{5} \bigg(\frac{T_p}{T_p + F_p} \bigg)
 $$
 
  * |$T_p$| - is the number of true positives. That is, the number of anomalies in the labeled set that also appear in the predictions.
  * |$F_n$| - is the number of false negatives. That is, the number of anomalies in the labeled set that do not appear in the predictions.
  * |$F_p$| - is the number of false positives. That is, the number of anomalies that are predicted, but are not anomalies in the labeled set.
+
+WPR will be calculated for each building site and the final score will be the average of the per-building `WPR` score.
 
 
 ## Submission format

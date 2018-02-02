@@ -51,7 +51,7 @@ These data may contain a small portion of wrong / missing values.
 
 Weather forecasts are given for several stations around each building site. The distance between the site and the station is given. The time granularity of the weather data varies from a station to the other.
 
-For each data set, several test periods over which a forecast is required will be specified. Data over these periods will be relatively clean. Participants can use the actual consumption over these test periods to determine whether their algorithm is working well. For each building and test period, it is allowed for the algorithm to use any form of model learned from previous data. On the other hand, participants are not supposed to attempt to get additional external information about the building sites.
+For each data set, several test periods over which a forecast is required will be specified. For each building and test period, it is allowed for the algorithm to use any form of model learned from previous data. On the other hand, participants are not supposed to attempt to get additional external information about the building sites. Also, when forecasting values for a given time period, participants are also not allowed to use given data from the following period (no interpolation is allowed).
 
 
 <a id="datasets"></a>
@@ -77,9 +77,9 @@ Additional information about the included buildings.
 
 ### Historical Weather Data
 
-This dataset contains temperature data from several stations near each site. For each site several temperature measurements were retrieved from stations in a radius of 30 km.
+This dataset contains temperature data from several stations near each site. For each site several temperature measurements were retrieved from stations in a radius of 30 km if available.
 
-** Note: Not all sites will have available weather data. **
+** Note: Not all sites will have available weather data.  **
 
  * `SiteId` - An arbitrary ID number for the building, matches across datasets
  * `Timestamp` - The time of the measurement
@@ -114,7 +114,7 @@ For each building and test period, the quality of the forecast will be evaluated
 To obtain a global performance index, the WRMSE is normalized by dividing it by the average consumption of the building over the test period, which is denoted as |$\mu_n$|. The average NWRMSE over all buildings and test periods is retained as a global performance index for the algorithm.
 
 $$
-NWRMSE = \frac{1}{N_{sites}} \sum_{n=1}^{N_{sites}} \frac{1}{\mu_n} \sqrt{ \frac{1}{T_n}\sum_{t=1}^{T_n} \frac{(3T_n - 2t +1)}{2 T_n^2} (y_t - \hat{y}_t)^2 }
+NWRMSE = \frac{1}{N_{sites}} \sum_{n=1}^{N_{sites}} \frac{1}{\mu_n} \sqrt{ \sum_{t=1}^{T_n} \frac{(3T_n - 2t +1)}{2 T_n^2} (y_t - \hat{y}_t)^2 }
 $$
 
  * |$N_{sites}$| - is the total number of sites
