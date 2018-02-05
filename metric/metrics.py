@@ -78,20 +78,57 @@ def test_weighted_rmse():
 
 
 def weighted_precision_recall(actual, predicted):
-    tp = (predicted & actual).sum()
-    fp = (predicted & ~actual).sum()
-    fn = (~predicted & actual).sum()
+    """ col 0: meter id
+        col 1: timestamp
+        col 2: is_normal
 
-    apr = 0.8 * (tp / (tp + fp)) + 0.2 * (tp / (tp + fn))
-    return apr
+        Computes the weighted, precision and recall
+        and averages over the meters present in the data
+    """
+    # flatten and cast meter ids
+    meter_ids = actual[:, 0].ravel()
+
+    # flatten and forece-cast actual + predictions since pandas often casts "objects" as stings
+    # and np.array(['True']).astype(bool) throws...
+    actual_bool = actual[:, 2].ravel().astype(str) == 'True'
+    predicted_bool = predicted[:, 2].ravel().astype(str) == 'True'
+
+    unique_meters = np.unique(meter_ids)
+    per_meter_errors = np.zeros_like(unique_meters, dtype=np.float64)
+
+    for i, meter in enumerate(unique_meters):
+        meter_mask = meter_ids == meter
+        pred_meter = predicted_bool[meter_mask]
+        act_meter = actual_bool[meter_mask]
+
+        tp = (pred_meter & act_meter).sum()
+        fp = (pred_meter & ~act_meter).sum()
+        fn = (~pred_meter & act_meter).sum()
+
+        # handle no positives predicted and no negatives predicted to avoid nan
+        if (tp + fp) == 0:
+            fp = 1e-10
+        if (tp + fn) == 0:
+            fn = 1e-10
+
+        apr = 0.8 * (tp / (tp + fp)) + 0.2 * (tp / (tp + fn))
+
+        per_meter_errors[i] = apr
+
+    return np.mean(per_meter_errors)
 
 
 def test_weighted_precision_recall():
-    actual = np.array([0, 1, 1, 0])
-    predicted = np.array([1, 1, 0, 0])
+    labels = np.array([0, 1, 1, 0] * 2, dtype=np.bool).reshape(-1, 1)
+    pred_labels = np.array([1, 1, 0, 0] * 2, dtype=np.bool).reshape(-1, 1)
+
+    meter_ids = np.array(['a'] * 4 + ['b'] * 4).reshape(-1, 1)
+
+    actual = np.hstack((meter_ids, meter_ids, labels))
+    predicted = np.hstack((meter_ids, meter_ids, pred_labels))
 
     assert 0.5 == weighted_precision_recall(actual, predicted)
-    assert 0.0 == weighted_precision_recall(actual, ~actual)
+    assert 0.0 == weighted_precision_recall(actual, np.hstack((meter_ids, meter_ids, ~labels)))
     assert 1.0 == weighted_precision_recall(actual, actual)
 
 
