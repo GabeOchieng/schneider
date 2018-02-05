@@ -59,21 +59,22 @@ def test_weighted_rmse():
     rng = np.random.RandomState(109157)
 
     sites = rng.choice([1.0, 2.0, 3.0, 4.0, 5.0], n_test).reshape(-1, 1)
+    forecast_ids = rng.choice(np.arange(100), n_test).reshape(-1, 1)
     idx = np.arange(n_test).reshape(-1, 1)
     values = rng.chisquare(100, n_test).reshape(-1, 1)
 
-    actual = np.hstack((idx, sites, values))
+    actual = np.hstack((idx, sites, forecast_ids, values))
 
     # actual actual is 1
     assert weighted_rmse(actual, actual) == 0
 
-    # actual + 100 ~= 0.998
-    np.testing.assert_approx_equal(weighted_rmse(actual, actual + 100), 0.998, significant=3)
+    # actual + 100 ~= 0.788
+    np.testing.assert_approx_equal(weighted_rmse(actual, actual + 100), 0.788, significant=3)
 
     # with nans
     predicted = actual + 100
     actual[5, 2] = np.nan
-    np.testing.assert_approx_equal(weighted_rmse(actual, predicted), 0.998, significant=3)
+    np.testing.assert_approx_equal(weighted_rmse(actual, predicted), 0.781, significant=3)
 
 
 def weighted_precision_recall(actual, predicted):
