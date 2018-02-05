@@ -62,6 +62,7 @@ For each data set, several test periods over which a forecast is required will b
 
 A selected time series of consumption data for over 200 buildings.
 
+ * `obs_id` - An arbitrary ID for the observationaa
  * `SiteId` - An arbitrary ID number for the building, matches across datasets
  * `Timestamp` - The time of the measurement
  * `Value` - A measure of consumption for that building
@@ -80,6 +81,8 @@ Additional information about the included buildings.
 This dataset contains temperature data from several stations near each site. For each site several temperature measurements were retrieved from stations in a radius of 30 km if available.
 
 ** Note: Not all sites will have available weather data.  **
+
+** Note: Weather data is available for test periods under the assumption that reasonably accurate forecasts will be available to algorithms that the time that we are attempting to make predictions about the future. **
 
  * `SiteId` - An arbitrary ID number for the building, matches across datasets
  * `Timestamp` - The time of the measurement
@@ -114,12 +117,12 @@ For each building and test period, the quality of the forecast will be evaluated
 To obtain a global performance index, the WRMSE is normalized by dividing it by the average consumption of the building over the test period, which is denoted as |$\mu_n$|. The average NWRMSE over all buildings and test periods is retained as a global performance index for the algorithm.
 
 $$
-NWRMSE = \frac{1}{N_{sites}} \sum_{n=1}^{N_{sites}} \frac{1}{\mu_n} \sqrt{ \sum_{t=1}^{T_n} \frac{(3T_n - 2t +1)}{2 T_n^2} (y_t - \hat{y}_t)^2 }
+NWRMSE = \frac{1}{N_{f}} \sum_{n=1}^{N_{f}} \frac{1}{\mu_n} \sqrt{ \sum_{t=1}^{T_n} \frac{(3T_n - 2t +1)}{2 T_n^2} (y_t - \hat{y}_t)^2 }
 $$
 
- * |$N_{sites}$| - is the total number of sites
- * |$\mu_n$| - is the average consumption for site (building)  over the time period |$T_n$|, which is calculated as |$ \frac{1}{T_n} \sum_{t=1}^{T_n} y_t $| This is used to normalize the error across sites.
- * |$T_n$| - the number of timestamps that we are calculating the metric over for site |$n$|
+ * |$N_{f}$| - is the total number of forecast periods (there are multiple test periods per site)
+ * |$\mu_n$| - is the average consumption for site (building)  over the time period |$T_n$|, which is calculated as |$ \frac{1}{T_n} \sum_{t=1}^{T_n} y_t $| This is used to normalize the error across multiple forecasts at different sites.
+ * |$T_n$| - the number of timestamps that we are calculating the metric over for this forecast |$n$|
  * |$y_t$| - the actual value at timestamp |$t$|
  * |$\hat{y}_t$| - the predicted value at timestamp |$t$|
 
@@ -129,7 +132,7 @@ Schneider Electric expects that some algorithms will perform better on some buil
 
 -----
 
-The format for the submission file is the same as the historical consumption data. The timestamps to make predictions are included in the submission format file which is provided.
+The format for the submission file is the same as the historical consumption data with the addition of an extra column `ForecastId`. This variables makes it easy to calculate the metric over the groups represented by |$N_{f}$| in the evaluation metric. The timestamps to make predictions are included in the submission format file which is provided.
 
 <a id="sub_values"></a>
 
@@ -138,17 +141,71 @@ The format for the submission file is the same as the historical consumption dat
 For example, if you predicted...
 
 <table class="table">
- OUTPUT OF df.head()
- OUTPUT OF df.tail()
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>SiteId</th>
+      <th>Timestamp</th>
+      <th>ForecastId</th>
+      <th>Value</th>
+    </tr>
+    <tr>
+      <th>obs_id</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1677832</th>
+      <td>1</td>
+      <td>2015-08-29</td>
+      <td>1</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>5379616</th>
+      <td>1</td>
+      <td>2015-08-30</td>
+      <td>1</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>496261</th>
+      <td>1</td>
+      <td>2015-08-31</td>
+      <td>1</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4567147</th>
+      <td>1</td>
+      <td>2015-09-01</td>
+      <td>1</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>3684873</th>
+      <td>1</td>
+      <td>2015-09-02</td>
+      <td>1</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
 </table>
 
 </div>
 
 Your `.csv` file that you submit would look like:
 
-OUTPUT_OF_HEAD
-...
-OUTPUT_OF_TAIL
+    obs_id,SiteId,Timestamp,ForecastId,Value
+    1677832,1,2015-08-29 00:00:00,1,0.0
+    5379616,1,2015-08-30 00:00:00,1,0.0
+    496261,1,2015-08-31 00:00:00,1,0.0
+    4567147,1,2015-09-01 00:00:00,1,0.0
+    3684873,1,2015-09-02 00:00:00,1,0.0
 
 
 ## Good luck!
