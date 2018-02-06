@@ -51,3 +51,6 @@ Planning and forecasting the use of the electrical energy is the backbone of eff
 </table>
 
 ***
+
+** Note: Prizes delivered by DrivenData in USD, based on the exchange rate on the challenge launch date. **
+

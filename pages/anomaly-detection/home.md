@@ -58,3 +58,6 @@ Schneider Electric already has relevant offers, but would like to determine if a
 </table>
 
 ***
+
+** Note: Prizes delivered by DrivenData in USD, based on the exchange rate on the challenge launch date. **
+
