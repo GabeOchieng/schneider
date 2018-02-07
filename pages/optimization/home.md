@@ -54,6 +54,6 @@ Your goal in this competition is to build an algorithm that controls a battery c
 
 ***
 
-** Note: Prizes delivered by DrivenData in USD, based on the exchange rate on the challenge launch date. **
+** Prizes delivered by DrivenData in USD, based on the exchange rate on February 6, 2018. **
 
 <small>1. E. Ela, M. Milligan, A. Bloom, A. Botterud, A. Townsend, and T. Levin. Evolution of Wholesale Electricity Market Design with Increasing Levels of Renewable Generation. Technical Report NREL/TP-5D00-61765, September 2014. </small>
