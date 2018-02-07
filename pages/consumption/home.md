@@ -12,7 +12,7 @@ This is one of <a href="https://www.drivendata.org/competitions">three challenge
 
 Building energy forecasting has gained momentum with the increase of building energy efficiency research and solution development. Indeed, forecasting the global energy consumption of a building can play a pivotal role in the operations of the building. It provides an initial check for facility managers and building automation systems to mark any discrepancy between expected and actual energy use. Accurate energy consumption forecasts are also used by facility managers, utility companies and building commissioning projects to implement energy-saving policies and optimize the operations of chillers, boilers and energy storage systems.
 
-Planning and forecasting the use of the electrical energy is the backbone of effective operations. Energy demand forecasting is already used within multiple Schneider Electric offers, requiring more or less data. Schneider Electric is interested in detecting more precise and robust forecasting methods that can do with little data. The need is to improve the best estimation of the global consumption in the building sector.
+Planning and forecasting the use of the electrical energy is the backbone of effective operations. Energy demand forecasting is used within multiple Schneider Electric offers, and different methods require more or less data. Schneider Electric is interested in more precise and robust forecasting methods that do well with little data. The goal is to improve the best estimation of the global consumption for a building.
 
 
 ***
@@ -52,5 +52,5 @@ Planning and forecasting the use of the electrical energy is the backbone of eff
 
 ***
 
-** Note: Prizes delivered by DrivenData in USD, based on the exchange rate on the challenge launch date. **
+** Note: Prizes delivered by DrivenData in USD, based on the exchange rate on February 6, 2018. **
 

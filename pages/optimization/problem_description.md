@@ -4,6 +4,8 @@ The objective is to create an optimization algorithm that effectively uses avail
 
 For this challenge, you will be provided the input data where each row represents a time at which you have to make a decision whether to consume power from the battery or to charge the battery.
 
+This competition is **not** a standard DrivenData machine learning competition. Instead, competitors will submit a **Python** file, `battery_controller.py` that implements `Battery.propose_state` by the close of the competition. This code will be executed after the competition to determine the best performing algorithms.
+
 
 <div class="container">
 	<div class="row">

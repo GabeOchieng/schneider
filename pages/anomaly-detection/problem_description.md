@@ -30,7 +30,7 @@ The overall objective is to provide methods for automatically detecting abnormal
 
 A few data sets, corresponding to different types of building sites from different geographies, will be provided. Some building sites will correspond to a unique main activity (office) while some will be mixed (office, research, cafeteria). The goal is to cover various situations and test solutions in differing conditions.
 
-Data sets will include global energy consumption (cumulative or not) in Watt-hours (Wh), at intervals of 10, 15, or 30 minutes (depending on local utility standards). Some will also optionally include sub-metering information along with some usage data (daily building occupancy, schedule, weather). Data sets may include missing and incorrect values.
+Data sets will include global energy consumption in Watt-hours (Wh), at intervals of 10, 15, or 30 minutes (depending on local utility standards). Some will also optionally include sub-metering information along with some usage data (daily building occupancy, schedule, weather). Data sets may include missing and incorrect values.
 
 Your goal is to identify, without access to training labels, anomalies in the dataset.
 
@@ -108,7 +108,9 @@ If either denominator evaluates to zero, a score of 0 (rather than a NaN) will b
 
 -----
 
-The submission file has the following columns:
+Submitted reports must be no more than 7 pages and contain information on the methods and kinds of anomalies detected. See the [Submit Report](https://www.drivendata.org/competitions/52/submissions/extra/) page for more details.
+
+Submitted predictions are a submission file has the following columns:
 
  * `obs_id` - a random id for the observation
  * `meter_id` - the ID of the meter

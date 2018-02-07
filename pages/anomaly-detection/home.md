@@ -59,5 +59,5 @@ Schneider Electric already has relevant offers, but would like to determine if a
 
 ***
 
-** Note: Prizes delivered by DrivenData in USD, based on the exchange rate on the challenge launch date. **
+** Note: Prizes delivered by DrivenData in USD, based on the exchange rate on February 6, 2018. **
 
