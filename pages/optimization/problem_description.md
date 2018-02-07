@@ -26,6 +26,7 @@ For this challenge, you will be provided the input data where each row represent
 
 Your algorithm must be engineered to accept data as defined by the `BatteryController.propose_state` function and use that data to propose a new state for the charge of the battery. The data passed to that function are as follows:
 
+ - `site_id` - The current site (building) id in case the model does different work per site
  - `timestamp` - The current date and time.
  - `battery` - A battery object with properties like `current_charge` which is a float from 0 (empty) to 1 (full).
  - `actual_previous_load` - The actual load (consumption) of the site during the last time step.
@@ -41,6 +42,18 @@ We provide two folders of data, and each one contains a single `csv` file named 
 
  - `submit`: contains site simulations for ~10 days. This should be used by the simulation script to generate a leaderboard submission.
  - `train`: a much longer period of data for discovering patterns and training algorithms that may be used in generating submissions.
+
+There is a file for each site within these folders, and those files have the following columns:
+
+ - `timestamp`: The date and time of the observation
+ - `site_id`: An arbitrary id for the site (building)
+ - `period_id`: IDs that indicate consecutive time periods
+ - `actual_consumption`: The actual building consumption at a particular timestep
+ - `actual_pv`: The actual photovoltaic energy produced at this timestep
+ - `load_XX`: For XX from 00 to 95, a forecast for the consumption where each subsequent value is 15 minutes later. These values are forecasts, and so will not exactly match the actual consumption at that timestep.
+ - `pv_XX`: For XX from 00 to 95, a forecast for the pv produced on site where each subsequent value is 15 minutes later. These values are forecasts, and so will not exactly match the actual_pv at that timestep.
+ - `price_buy_XX`: For XX from 00 to 95, a forecast for the consumption where each subsequent value is 15 minutes later. Prices are not forecasts (these are assumed to be available at prediction time).
+ - `price_sell_XX`: For XX from 00 to 95, a forecast for the consumption where each subsequent value is 15 minutes later. Prices are not forecasts (these are assumed to be available at prediction time).
 
 <a id="sim"></a>
 
@@ -69,14 +82,16 @@ The simulation proceeds as follows for each timestep (for implementation, see `s
 
 ## Code submission format
 
-[We provide a sample repository](https://github.com/drivendataorg/power-laws-optimization) that shows how the simulations will be executed. We will only accept a single `battery_controller.py` file as your submission. That file must implement the `propose_state` method on the `BatteryController` object, which will be called by the simulation. You cannot change the method signature of `propose_state`, but you can add any supplementary methods you may need, including ones that store state on the BatteryController object. This object is instantiated once at the begininning of each simulation, and persists throughout the entire simulation.
+[We provide a sample repository](https://github.com/drivendataorg/power-laws-optimization) that shows how the simulations will be executed. We will only accept a `battery_controller.py` file and an `assets` folder that contains any data for trained models as your submission. These must be archived into a single `zip` file. That file must implement the `propose_state` method on the `BatteryController` object, which will be called by the simulation. You cannot change the method signature of `propose_state`, but you can add any supplementary methods you may need, including ones that store state on the BatteryController object. This object is instantiated once at the begininning of each simulation, and persists throughout the entire simulation.
 
-Before the end of February, we will add a `Code Submission` link to the right hand column when you have joined the competition. Through this link you can submit your code implementation. Submit only the following file:
+Before the end of February, we will add a `Code Submission` link to the right hand column when you have joined the competition. Through this link you can submit your code implementation. Submit only the following archived into a single `zip` archive:
 
- - battery_controller.py
+ - `battery_controller.py`: implements `propose_state`
+ - `assets`: a directory containing trained models or other data used by the controller; no code is allowed in this folder.
 
 You may continue to submit your latest code up until the deadline. We will only keep your most recent submission.
 
+If you submit `assets` including trained models, the winning competitors will be contacted for their code that created the trained the models, which must be reproducible from the raw data.
 
 <a id="eval"></a>
 
@@ -86,11 +101,11 @@ The code will be executed inside a Docker container. [The competition repository
 
 The container will provide Python 3.6 and versions of the Python libraries specified in the `requirements.txt` file, which include `pandas`, `numpy`, `scikit-learn`, and other common data libraries. Libraries outside of those identified can be requested to be included on the forum for the competition up until February 26, at which point we will stop making changes to the requirements. Only libraries that are installable with `pip` will be accepted. The algorithm must only use the libraries listed in the requirements file.
 
-Additionally, the container will be given a limited runtime, CPU (`1 CPU`, 2.5 GHz Intel Xeon® Platinum 8175 processors or equivalent), and RAM (`4GB`, no swap). The container will not have access to a GPU. These limits will be included in the competition repository. The runtime will be no more than 30 minutes to make predictions over the course of a 10 day simulation.
+Additionally, the container will be given a limited runtime, CPU (`1 CPU`, 2.5 GHz Intel Xeon® Platinum 8175 processors or equivalent), and RAM (`4GB`, no swap). The container will not have access to a GPU. These limits will be included in the competition repository. The runtime will be no more than 30 minutes to make predictions for all of the simulations we run, which will be the same total number as the `submit` data.
 
-At the end of the competition, submitted `battery.py` files will be used in a simulation under the above constraints. We will test each submission against multiple 10 day periods (same for all competitors) with different properties and record the results as a ratio of the money spent using the battery over the money spent without the battery. These results will be averaged over all of the simulations for a final score where a lower score is better. Winning competitors will be notified by email.
+At the end of the competition, submitted `battery_controller.py` files and `assets` folders will be used in a simulation under the above constraints. We will test each submission against multiple 10 day periods (same for all competitors) with different properties and record the results as a ratio of the money spent using the battery over the money spent without the battery. These results will be averaged over all of the simulations for a final score where a lower score is better. Winning competitors will be notified by email.
 
-Code that does not execute within the constraints will not be disqualified.
+Due to the volume of submissions, code that does not execute within the constraints or does not follow the submission format will be disqualified without notification.
 
 <a id="scores"></a>
 
