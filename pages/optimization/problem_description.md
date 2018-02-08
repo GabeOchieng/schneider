@@ -50,12 +50,12 @@ There is a file for each site within these folders, and those files have the fol
  - `timestamp`: The date and time of the observation
  - `site_id`: An arbitrary id for the site (building)
  - `period_id`: IDs that indicate consecutive time periods
- - `actual_consumption`: The actual building consumption at a particular timestep
- - `actual_pv`: The actual photovoltaic energy produced at this timestep
- - `load_XX`: For XX from 00 to 95, a forecast for the consumption where each subsequent value is 15 minutes later. These values are forecasts, and so will not exactly match the actual consumption at that timestep.
- - `pv_XX`: For XX from 00 to 95, a forecast for the pv produced on site where each subsequent value is 15 minutes later. These values are forecasts, and so will not exactly match the actual_pv at that timestep.
- - `price_buy_XX`: For XX from 00 to 95, a forecast for the consumption where each subsequent value is 15 minutes later. Prices are not forecasts (these are assumed to be available at prediction time).
- - `price_sell_XX`: For XX from 00 to 95, a forecast for the consumption where each subsequent value is 15 minutes later. Prices are not forecasts (these are assumed to be available at prediction time).
+ - `actual_consumption`: The actual building consumption at a particular timestep (i.e., the consumption during the previous 15 minutes).
+ - `actual_pv`: The actual photovoltaic energy produced at this timestep (i.e., the pv productions during the previous 15 minutes)
+ - `load_XX`: For XX from 00 to 95, a forecast for the consumption where each subsequent value is 15 minutes later. `load_00` is a forecast for the load in the next 15 minutes. These values are forecasts, and so will not exactly match the actual consumption at that timestep.
+ - `pv_XX`: For XX from 00 to 95, a forecast for the pv produced on site where each subsequent value is 15 minutes later. `pv_00` is a forecast for the pv production during the next 15 minutes. These values are forecasts, and so will not exactly match the actual_pv at that timestep.
+ - `price_buy_XX`: For XX from 00 to 95, a forecast for the consumption where each subsequent value is 15 minutes later. `price_buy_00` is the cost of buying energy for the next 15 minutes. Prices are not forecasts (these are assumed to be available at prediction time).
+ - `price_sell_XX`: For XX from 00 to 95, a forecast for the consumption where each subsequent value is 15 minutes later. `price_sell_00` is the price paid for energy sold during the next 15 minutes. Prices are not forecasts (these are assumed to be available at prediction time).
 
 <a id="sim"></a>
 
