@@ -64,6 +64,7 @@ A selected time series of consumption data for over 200 buildings.
 
  * `obs_id` - An arbitrary ID for the observationaa
  * `SiteId` - An arbitrary ID number for the building, matches across datasets
+ * `ForecastId` - An ID for a timeseries that is part of a forecast (can be matched with the submission file)
  * `Timestamp` - The time of the measurement
  * `Value` - A measure of consumption for that building
 

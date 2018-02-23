@@ -61,6 +61,13 @@ There is a file for each site within these folders, and those files have the fol
 
 ## The Simulation
 
+--------
+
+<h5><a href="https://github.com/drivendataorg/power-laws-optimization">Repo for Simulation Engine</a> (code may change)</h5>
+<small>Latest commit sha: <span id="commit-sha"></span></small>
+
+-------
+
 [The simulation engine](https://github.com/drivendataorg/power-laws-optimization) provides data to the battery controller at every time step and asks for a desired charge of the battery for the next time step. The aim of this challenge is to provide, every 15 minutes, the state of the charge of the battery to target 15 minutes later. If that charge can be achieved in that time it will be. If not, the battery will get as close as possible. At each time step the energy needed from the grid will be calculated and the price for that energy will be calculated. If the energy needed is negative, that much energy will be sold. The simulation engine will track the total amount of money spent by the algorithm over the course of the simulation and compare that to the cost of the energy if the building had no battery at all.
 
 The simulation proceeds as follows for each timestep (for implementation, see `simulate.py`):
@@ -101,7 +108,7 @@ If you submit `assets` including trained models, the winning competitors will be
 
 The code will be executed inside a Docker container. [The competition repository](https://github.com/drivendataorg/power-laws-optimization) provides the Dockerfile and the instructions for running the container.
 
-The container will provide Python 3.6 and versions of the Python libraries specified in the `requirements.txt` file, which include `pandas`, `numpy`, `scikit-learn`, and other common data libraries. Libraries outside of those identified can be requested to be included on the forum for the competition up until February 26, at which point we will stop making changes to the requirements. Only libraries that are installable with `pip` will be accepted. The algorithm must only use the libraries listed in the requirements file.
+The container will provide Python 3.6 and versions of the Python libraries specified in the `requirements.txt` file, which include `pandas`, `numpy`, `scikit-learn`, and other common data libraries. Libraries outside of those identified can be requested to be included on the forum for the competition up until **March 9**, at which point we will stop making changes to the requirements. Only libraries that are installable with `pip` will be accepted. The algorithm must only use the libraries listed in the requirements file.
 
 Additionally, the container will be given a limited runtime, CPU (`1 CPU`, 2.5 GHz Intel Xeon® Platinum 8175 processors or equivalent), and RAM (`4GB`, no swap). The container will not have access to a GPU. These limits will be included in the competition repository. The runtime will be no more than 30 minutes to make predictions for all of the simulations we run, which will be the same total number as the `submit` data.
 
