@@ -74,7 +74,7 @@ Additional information about the included buildings.
 
  * `SiteId` - An arbitrary ID number for the building, matches across datasets
  * `Surface` - The surface area of the building
- * `Sampling` - The number of minutes between each observation for this site. Fore eacch forecast can be found in the separate `Submission Forecast Period` file.
+ * `Sampling` - The number of minutes between each observation for this site. The timestep size for each `ForecastId` can be found in the separate "Submission Forecast Period" file on the data download page.
  * `BaseTemperature` - The base temperature for the building
  * `[DAY_OF_WEEK]IsDayOff` - `True` if `DAY_OF_WEEK` is not a work day
 
