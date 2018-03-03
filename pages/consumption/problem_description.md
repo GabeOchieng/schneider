@@ -21,6 +21,8 @@ The goal of this competition is to _forecast_ consumption accurately. Only algor
 				<li><a href="#features_list">Overview</a></li>
 				<li><a href="#datasets">Datasets</a></li>
 				<li><a href="#external">External data</a></li>
+        <li><a href="#what-when">Eligibility Rules</a></li>
+
 			</ul>
 		</div>
 		<div class="col-xs-3">
@@ -106,6 +108,39 @@ Public holidays at the sites included in the dataset, which may be helpful for i
 ## External data
 
 For this competition, use of external data is prohibited, with the sole exception of pre-trained Neural Networks that are included on the External Data thread in the forum.
+
+
+<a id="what-when"></a>
+
+## Eligibility Rules (what data you can use when)
+
+As already mentioned, **your solution cannot be a function that interpolates between past and future data**. Submissions that are determined by the judges to violate this constraint will not be eligible for a prize. In general, intellectual honesty should be your guiding principle. Your goal is to build a model that generalizes well enough to forecasting the future, so you must believe you have not overfit the training data.
+
+
+### Data use at training time
+
+When you are training your model, you can use any of the training data available to you. However, you must not use that data to create an interpolation across the omitted test periods.
+
+If you're having trouble knowing if your model is eligible, here is an example that might help. Say you are asked to make predictions for March 2016. At prediction time, your model can use the following features: any data before March 2016, any weather data we provide, and the fact that we want to make predictions in March. However, the model shouldn’t need to know that we are predicting in the year 2016. For the same historical time series and weather data, the model should make the same predictions in March regardless of year. If your model requires the year to make a prediction, then you’ve probably created an interpolation. This is just an example, not a rule so consider your training approach carefully.
+
+### Data use at prediction time
+
+
+When making a forecast, you can use the following data for constructing features that are inputs to your model. Say that we're making predictions for building |$B_i$| at timestep |$t_5$| for the larger forecast period |$T_p$|.
+
+**Data you can use in this case is:**
+
+ - Any weather data, including data during |$T_p$|
+ - Any consumption data from |$B_i$| that is before |$T_p$|
+ - Any predictions that we have made for |$T_p$| (the goal is to predict for the entire period, not necessarily for each step sequentially, which means that any other predictions during |$T_p$| can be used)
+ - Data from buildings other than |$B_i$| before |$T_p$|, but not during or after
+
+**Data you cannot use in this case is:**
+
+ - Actual consumption data for |$B_i$| during |$T_p$| (this is not provided)
+ - Consumption for |$B_i$| after |$T_p$|
+ - Consumption for building other than |$B_i$| during |$T_p$|
+ - Consumption for building other than |$B_i$| after |$T_p$|
 
 
 <a id="metric"></a>
