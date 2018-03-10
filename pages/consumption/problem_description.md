@@ -43,9 +43,9 @@ The goal of this competition is to _forecast_ consumption accurately. Only algor
 
 More than 200 building sites are considered. Three time horizons and time steps are distinguished. The goal is either:
 
- - To forecast the consumption for each quarter of an hour over the next 24 hours (96 quarters).
- - To forecast the consumption for each hour over the next four days (96 hours).
- - To forecast the consumption for each day over the coming month (30 days).
+ - To forecast the consumption for each quarter for the length of time specified by the submission format.
+ - To forecast the consumption for each hour for the length of time specified by the submission format.
+ - To forecast the consumption for each day for the length of time specified by the submission format.
 
 Historical data are given at the granularity that is required for the consumption forecast. So, when historical data are given by steps of 15 minutes, forecasts are required by steps of 15 minutes. When historical data are given by steps of 1 hour, forecasts are required by steps of 1 hour. When historical data are given by steps of 1 day, forecasts are required by steps of 1 day.
 
