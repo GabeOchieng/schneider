@@ -159,7 +159,7 @@ $$
 
  * |$N_{f}$| - is the total number of forecast periods (there are multiple test periods per site)
  * |$\mu_n$| - is the average consumption for site (building)  over the time period |$T_n$|, which is calculated as |$ \frac{1}{T_n} \sum_{t=1}^{T_n} y_t $| This is used to normalize the error across multiple forecasts at different sites.
- * |$T_n$| - the number of timestamps that we are calculating the metric over for this forecast |$n$|
+ * |$T_n$| - the number of timestamps that we are calculating the metric over for this forecast |$n$|. **For simplicity of calculation, this is a constant of `200` across all of the predictions.**
  * |$y_t$| - the actual value at timestamp |$t$|
  * |$\hat{y}_t$| - the predicted value at timestamp |$t$|
 
